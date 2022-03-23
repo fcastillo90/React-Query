@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Popup, Table } from 'components';
 
-function App() {
+function Main() {
+  const [detailPokemon, setDetailPokemon] = useState("")
+  const [isPopupOpen, setPopupOpen] = useState(false)
+
+  const handleClosePopup = () => {
+    setPopupOpen(false)
+  }
+
+  const handleRowClick = (name: string) => {
+    setDetailPokemon(name)
+    setPopupOpen(true)
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{height: '100vh'}}>
+      <Table
+        onRowClick={handleRowClick}
+      />
+      <Popup
+        pokemon={detailPokemon}
+        isOpen={isPopupOpen}
+        handleClose={handleClosePopup}
+      />
     </div>
   );
 }
 
-export default App;
+export default Main;
